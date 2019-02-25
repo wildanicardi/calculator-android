@@ -1,4 +1,7 @@
 ## 2.0 (February 25, 2019)
+  - Bump version to 2.0.
+
+## 2.0 (February 25, 2019)
 
 
 ## 2.0 (February 25, 2019)
