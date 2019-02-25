@@ -1,4 +1,7 @@
 ## 2.0 (February 25, 2019)
+
+
+## 2.0 (February 25, 2019)
   - Merge branch 'minggu2' into develop
   - Minggu 2
 
