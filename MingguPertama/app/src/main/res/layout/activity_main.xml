@@ -185,5 +185,7 @@
         android:layout_alignStart="@+id/button10"
         android:layout_below="@+id/button0"
         android:layout_marginTop="37dp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:text="=" />
 </RelativeLayout>
