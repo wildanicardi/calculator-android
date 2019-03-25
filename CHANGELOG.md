@@ -1,3 +1,7 @@
+## 6.0 (March 25, 2019)
+  - minggu 06
+  - minggu 6
+
 ## 5.0 (March 18, 2019)
   - minggu 05
   - minggu 04
