@@ -18,11 +18,11 @@ import android.widget.TextView;
  */
 public class Home extends Fragment {
     Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,b10,buttonAdd, buttonSub, buttonDivision,
-            buttonMul, buttonC, buttonEqual;
+            buttonMul, buttonC, buttonEqual,btnNegatif,btnPersen,delete;
     TextView edit,edit2;
     float mValueOne, mValueTwo;
 
-    boolean Addition, mSubtract, multiplication, division;
+    boolean Addition, mSubtract, multiplication, division,persen;
     public Home() {
         // Required empty public constructor
     }
@@ -50,6 +50,9 @@ public class Home extends Fragment {
         buttonDivision = (Button)viewFrag1.findViewById(R.id.buttondiv);
         buttonC = (Button)viewFrag1.findViewById(R.id.buttonC);
         buttonEqual = (Button)viewFrag1.findViewById(R.id.buttoneql);
+        btnNegatif = (Button)viewFrag1.findViewById(R.id.negatifplus);
+        btnPersen = (Button)viewFrag1.findViewById(R.id.buttonpersen);
+        delete = (Button)viewFrag1.findViewById(R.id.hapus);
         edit = (TextView) viewFrag1.findViewById(R.id.edt1);
         edit2 = (TextView)viewFrag1.findViewById(R.id.edt2);
 
@@ -169,6 +172,15 @@ public class Home extends Fragment {
                 edit2.setText(edit2.getText() + "/");
             }
         });
+        btnPersen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mValueOne = Float.parseFloat(edit.getText()+"");
+                persen = true;
+                edit.setText(null);
+                edit2.setText(edit2.getText() + "%");
+            }
+        });
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,6 +205,10 @@ public class Home extends Fragment {
                     edit.setText(mValueOne / mValueTwo + "");
                     division = false;
                 }
+                if (persen == true){
+                    float n= 100;
+                    edit.setText(mValueOne*mValueTwo/n + "");
+                }
             }
         });
         buttonC.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +223,26 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 edit.setText( edit.getText() +".");
+                edit2.setText(edit2.getText() + ".");
 
+            }
+        });
+        btnNegatif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit.setText("-"+edit.getText());
+                edit2.setText(edit2.getText() + "-");
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str=edit.getText().toString();
+                str = str.substring(0,str.length()-1);
+                String str2=edit.getText().toString();
+                str2 = str2.substring(0,str2.length()-1);
+                edit.setText(str);
+                edit2.setText(str2);
             }
         });
             return viewFrag1;
