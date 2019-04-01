@@ -1,3 +1,7 @@
+## 7.1.0 (April 01, 2019)
+  - Menambah Method Post
+  - Bump version to 7.0.
+
 ## 7.0 (April 01, 2019)
 
 
