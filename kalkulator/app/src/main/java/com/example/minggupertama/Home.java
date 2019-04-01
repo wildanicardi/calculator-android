@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -20,7 +23,133 @@ public class Home extends Fragment {
     Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,b10,buttonAdd, buttonSub, buttonDivision,
             buttonMul, buttonC, buttonEqual,btnNegatif,btnPersen,delete;
     TextView edit,edit2;
-    float mValueOne, mValueTwo;
+    float hasil;
+    public void setInputan(TextView btn){
+        TextView edit = getView().findViewById(R.id.edt1);
+        tampil = edit.getText().toString();
+        String btnValue = btn.getText().toString();
+        if(tampil.equals("0")){
+            if (btnValue.equals(".")) {
+                edit.setText("0" + btnValue);
+            } else {
+                if (btnValue.equals("+") || btnValue.equals("x") || btnValue.equals("/") || btnValue.equals("%") ){
+                }else {
+                    edit.setText(btnValue);
+                }
+            }
+        } else{
+            edit.setText(tampil + btnValue);
+        }
+    }
+    public void hapus(){
+    TextView tVbawah = getView().findViewById(R.id.edt1);
+    String layar = tVbawah.getText().toString();
+        if (layar.length() > 1){
+        tVbawah.setText(layar.substring(0,layar.length()-1));
+    } else {
+        tVbawah.setText("0");
+    }
+}
+
+    public void hapusSemua(){
+        listInput.removeAll(listInput);
+        TextView tVbawah = getActivity().findViewById(R.id.edt1);
+        TextView tVatas = getActivity().findViewById(R.id.edt2);
+        tVbawah.setText("0");
+        tVatas.setText("");
+        listInput.clear();
+    }
+
+
+    public void hasil(){
+
+        TextView tvBawah = getActivity().findViewById(R.id.edt1);
+        TextView tvAtas = getActivity().findViewById(R.id.edt2);
+
+        //convert input ke array
+        String layar = tvBawah.getText().toString();
+        String numeric = "";
+
+        for (int i=0;i<layar.length();i++){
+            if (i>0){
+                if (layar.charAt(i) == '+' || layar.charAt(i) == '-' || layar.charAt(i) == 'x' || layar.charAt(i) == '/' || layar.charAt(i) == '%'){
+                    listInput.add(numeric);
+                    listInput.add(String.valueOf(layar.charAt(i)));
+                    numeric = "";
+                } else {
+                    numeric += String.valueOf(layar.charAt(i));
+                }
+            } else {
+                numeric += String.valueOf(layar.charAt(i));
+            }
+
+        }
+
+        listInput.add(numeric);
+
+        //Bodmas
+        for (int i=0;i<listInput.size();i++) {
+            if (listInput.get(i).equals("%")) {
+                float temp = Float.parseFloat(listInput.get(i - 1).toString());
+                //  float temp2 = Float.parseFloat(listInput.get(i + 1).toString());
+                float hsl = temp / 100;
+                listInput.set(i, String.valueOf(hsl));
+                listInput.remove(i - 1);
+                // listInput.remove(i);
+                i--;
+            }
+
+            else if (listInput.get(i).equals("x")) {
+                float temp = Float.parseFloat(listInput.get(i - 1).toString());
+                float temp2 = Float.parseFloat(listInput.get(i + 1).toString());
+                float hsl = temp * temp2;
+                listInput.set(i, String.valueOf(hsl));
+                listInput.remove(i - 1);
+                listInput.remove(i);
+                i--;
+
+            } else if (listInput.get(i).equals("/")){
+                float temp = Float.parseFloat(listInput.get(i-1).toString());
+                float temp2 = Float.parseFloat(listInput.get(i+1).toString());
+                float hsl = temp / temp2;
+                listInput.set(i, String.valueOf(hsl));
+                listInput.remove(i-1);
+                listInput.remove(i);
+                i--;
+            }
+        }
+
+        for (int i=0;i<listInput.size();i++){
+            if (listInput.get(i).equals("+")) {
+                float temp = Float.parseFloat(listInput.get(i - 1).toString());
+                float temp2 = Float.parseFloat(listInput.get(i + 1).toString());
+                float hsl = temp + temp2;
+                listInput.set(i, String.valueOf(hsl));
+                listInput.remove(i - 1);
+                listInput.remove(i);
+                i--;
+
+            } else if (listInput.get(i).equals("-")){
+                float temp = Float.parseFloat(listInput.get(i-1).toString());
+                float temp2 = Float.parseFloat(listInput.get(i+1).toString());
+                float hsl = temp - temp2;
+                listInput.set(i, String.valueOf(hsl));
+                listInput.remove(i-1);
+                listInput.remove(i);
+                i--;
+            }
+        }
+
+        //hasil akhir
+        tvAtas.setText(tvBawah.getText().toString());
+        tvBawah.setText(String.valueOf(listInput.get(0).toString()).replaceAll("\\.?0*$", ""));
+        listInput.clear();
+
+    }
+
+
+    ArrayList<String> listInput = new ArrayList<>();
+    String tampil;
 
     boolean Addition, mSubtract, multiplication, division,persen;
     public Home() {
@@ -59,190 +188,130 @@ public class Home extends Fragment {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "1");
-                edit2.setText(edit2.getText() + "1");
+                setInputan(b1);
             }
         });
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "2");
-                edit2.setText(edit2.getText() + "2");
+                setInputan(b2);
             }
         });
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "3");
-                edit2.setText(edit2.getText() + "3");
+                setInputan(b3);
             }
         });
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "4");
-                edit2.setText(edit2.getText() + "4");
+                setInputan(b4);
             }
         });
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "5");
-                edit2.setText(edit2.getText() + "5");
+                setInputan(b5);
             }
         });
         b6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "6");
-                edit2.setText(edit2.getText() + "6");
+                setInputan(b6);
             }
         });
         b7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "7");
-                edit2.setText(edit2.getText() + "7");
+                setInputan(b7);
             }
         });
         b8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "8");
-                edit2.setText(edit2.getText() + "8");
+                setInputan(b8);
             }
         });
         b9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "9");
-                edit2.setText(edit2.getText() + "9");
+                setInputan(b9);
             }
         });
         b0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText(edit.getText() + "0");
-                edit2.setText(edit2.getText() + "0");
+                setInputan(b0);
             }
         });
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (edit == null) {
-                    edit.setText("");
-                } else {
-                    mValueOne = Float.parseFloat(edit.getText() + "");
-                    Addition = true;
-                    edit.setText(null);
-                    edit2.setText(edit2.getText() + "+");
-                }
+                setInputan(buttonAdd);
             }
         });
         buttonSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edit == null){
-                    edit.setText("");
-                }else {
-                    mValueOne = Float.parseFloat(edit.getText() + "");
-                    mSubtract = true;
-                    edit.setText(null);
-                    edit2.setText(edit2.getText() + "-");
-                }
+                setInputan(buttonSub);
 
             }
         });
         buttonMul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mValueOne = Float.parseFloat(edit.getText() + "");
-                multiplication = true;
-                edit.setText(null);
-                edit2.setText(edit2.getText() + "*");
+                setInputan(buttonMul);
             }
         });
         buttonDivision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mValueOne = Float.parseFloat(edit.getText() + "");
-                division = true;
-                edit.setText(null);
-                edit2.setText(edit2.getText() + "/");
+                setInputan(buttonDivision);
             }
         });
         btnPersen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mValueOne = Float.parseFloat(edit.getText()+"");
-                persen = true;
-                edit.setText(null);
-                edit2.setText(edit2.getText() + "%");
+                setInputan(btnPersen);
             }
         });
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mValueTwo = Float.parseFloat(edit.getText() + "");
-
-                if (Addition == true) {
-                    edit.setText(mValueOne + mValueTwo + "");
-                    Addition = false;
+                try {
+                    hasil();
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "Inputan Gagal!", Toast.LENGTH_SHORT).show();
                 }
 
-                if (mSubtract == true) {
-                    edit.setText(mValueOne - mValueTwo + "");
-                    mSubtract = false;
-                }
-
-                if (multiplication == true) {
-                    edit.setText(mValueOne * mValueTwo + "");
-                    multiplication = false;
-                }
-
-                if (division == true) {
-                    edit.setText(mValueOne / mValueTwo + "");
-                    division = false;
-                }
-                if (persen == true){
-                    float n= 100;
-                    edit.setText(mValueOne*mValueTwo/n + "");
-                }
             }
         });
         buttonC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText("");
-                edit2.setText("");
+                hapusSemua();
             }
         });
 
         b10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText( edit.getText() +".");
-                edit2.setText(edit2.getText() + ".");
+                setInputan(b10);
 
             }
         });
         btnNegatif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setText("-"+edit.getText());
-                edit2.setText(edit2.getText() + "-");
+                setInputan(btnNegatif);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str=edit.getText().toString();
-                str = str.substring(0,str.length()-1);
-                String str2=edit.getText().toString();
-                str2 = str2.substring(0,str2.length()-1);
-                edit.setText(str);
-                edit2.setText(str2);
+                hapus();
             }
         });
             return viewFrag1;

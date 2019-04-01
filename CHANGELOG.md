@@ -1,3 +1,9 @@
+## 7.0 (April 01, 2019)
+
+
+## 7.0 (April 01, 2019)
+  - minggu 07
+
 ## 6.1.0 (March 26, 2019)
   - penambahan fungsi operator lainya yaiut persen
 
