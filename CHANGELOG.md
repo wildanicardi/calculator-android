@@ -1,3 +1,6 @@
+## 7.2.0 (April 01, 2019)
+  - menambah ss
+
 ## 7.1.0 (April 01, 2019)
   - Menambah Method Post
   - Bump version to 7.0.
