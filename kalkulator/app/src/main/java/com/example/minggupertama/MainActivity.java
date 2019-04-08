@@ -12,42 +12,50 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
     Button change;
     Boolean kondisi = true;
-
+    private boolean isLoginForm = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         change = (Button)findViewById(R.id.change_button);
-        change.setOnClickListener(this);
+        formLogin();
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if (!isLoginForm){
 
+                        formRegist();
+                        change.setVisibility(v.INVISIBLE);
+                    } else {
+                        formLogin();
+                    }
+
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.change_button:
-                if (kondisi) {
-                    kondisi = false;
-                    Home satu = new Home();
-                    FragmentManager FM = getSupportFragmentManager();
-                    FragmentTransaction FT = FM.beginTransaction();
-                    FT.replace(R.id.main_menu, satu);
-                    FT.commit();
-                } else {
-                    kondisi = true;
-                    Second dua = new Second();
-                    FragmentManager FM2 = getSupportFragmentManager();
-                    FragmentTransaction FT2 = FM2.beginTransaction();
-                    FT2.replace(R.id.main_menu, dua);
-                    FT2.commit();
-                }
-                break;
-
+        public void formRegist(){
+            isLoginForm = true;
+            Register regis = new Register();
+            FragmentManager FM = getSupportFragmentManager();
+            FragmentTransaction FT = FM.beginTransaction();
+            FT.replace(R.id.main_menu, regis);
+            FT.commit();
         }
+
+        public void formLogin(){
+            isLoginForm = false;
+        Login login = new Login();
+        FragmentManager FM = getSupportFragmentManager();
+        FragmentTransaction FT = FM.beginTransaction();
+        FT.replace(R.id.main_menu, login);
+        FT.commit();
+
     }
+
 }
 
