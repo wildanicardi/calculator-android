@@ -1,3 +1,6 @@
+## 8.0 (April 08, 2019)
+  - Layout register dan login
+
 ## 7.2.0 (April 01, 2019)
   - menambah ss
 
