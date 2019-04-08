@@ -69,11 +69,12 @@ public class Login extends Fragment {
     private void Login(){
         loading.setVisibility(View.VISIBLE);
         btnLogin.setVisibility(View.GONE);
-
+        String nrp2 =nrp.getText().toString().trim();
+        String password2 = password.getText().toString().trim();
         JSONObject params = new JSONObject();
         try {
-            params.put("username",nrp);
-            params.put("password",password);
+            params.put("username",nrp2);
+            params.put("password",password2);
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -82,11 +83,10 @@ public class Login extends Fragment {
             public void onResponse(JSONObject response) {
                 Toast.makeText(getContext(), "Bisa", Toast.LENGTH_SHORT).show();
                 try {
-
                     String acces_token = response.getJSONObject("results").getString("access_token");
                     String refresh_token = response.getJSONObject("results").getString("refresh_token");
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("acces_token",acces_token);
+                    editor.putString("access_token",acces_token);
                     editor.putString("refresh_token",refresh_token);
                     editor.commit();
                     Intent intent = new Intent(getContext(),Calculator.class);
