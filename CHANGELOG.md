@@ -1,3 +1,6 @@
+## 9.2.0 (April 15, 2019)
+  -  ss project
+
 ## 9.1.0 (April 15, 2019)
   - add logic
 
