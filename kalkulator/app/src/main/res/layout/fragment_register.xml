@@ -12,6 +12,7 @@
     tools:context=".Register">
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/nrp2"
@@ -120,8 +121,9 @@
         android:id="@+id/btn_regist"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_gravity="center"
         android:text="Register"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:textColor="@android:color/white"/>
 </LinearLayout>

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -89,8 +91,12 @@ public class Login extends Fragment {
                     editor.putString("access_token",acces_token);
                     editor.putString("refresh_token",refresh_token);
                     editor.commit();
-                    Intent intent = new Intent(getContext(),Calculator.class);
-                    startActivity(intent);
+                    Biodata biodata = new Biodata();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_menu, biodata);
+                    fragmentTransaction.commit();
+
                     loading.setVisibility(View.GONE);
                     btnLogin.setVisibility(View.VISIBLE);
                 }catch (JSONException e){

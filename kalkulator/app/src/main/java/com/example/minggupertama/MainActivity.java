@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,9 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button change;
+    Button change,changeFragment;
     Boolean kondisi = true;
     private boolean isLoginForm = true;
     @Override
@@ -22,7 +24,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         change = (Button)findViewById(R.id.change_button);
+        changeFragment = (Button)findViewById(R.id.change_fragment);
         formLogin();
+        changeFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isLoginForm){
+                    Toast.makeText(MainActivity.this, "Login Dulu", Toast.LENGTH_SHORT).show();
+                }else {
+
+                }
+            }
+        });
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void formLogin(){
-            isLoginForm = false;
+        isLoginForm = false;
         Login login = new Login();
         FragmentManager FM = getSupportFragmentManager();
         FragmentTransaction FT = FM.beginTransaction();

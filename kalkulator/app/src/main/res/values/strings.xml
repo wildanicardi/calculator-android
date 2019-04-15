@@ -7,5 +7,6 @@
     <string name="hasil">hasil</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Selamat datang Di aplikasi Kalkulator </string>
+    <string name="title_activity_maps">Map</string>
 </resources>
