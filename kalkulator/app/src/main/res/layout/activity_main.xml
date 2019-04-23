@@ -20,13 +20,6 @@
             android:layout_height="50dp"
             android:text="Belum Register"
             android:background="@color/colorPrimaryDark"/>
-        <Button
-            android:id="@+id/change_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Change"
-            android:background="@color/colorNew"/>
     </LinearLayout>
 
 

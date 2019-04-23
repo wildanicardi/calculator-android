@@ -46,4 +46,17 @@
         android:text="About"
         app:iconPadding="8dp"/>
 
+    <Button
+        android:id="@+id/btn_kalkulator"
+        android:layout_marginTop="40px"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:background="@color/colorNew"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Kalkulator"
+        app:iconPadding="8dp"/>
+
+
+
 </LinearLayout>

@@ -284,12 +284,7 @@ public class Calculator extends AppCompatActivity {
                 setInputan(buttonDivision);
             }
         });
-        btnPersen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setInputan(btnPersen);
-            }
-        });
+
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -309,12 +304,6 @@ public class Calculator extends AppCompatActivity {
             public void onClick(View v) {
                 setInputan(b10);
 
-            }
-        });
-        btnNegatif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setInputan(btnNegatif);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {

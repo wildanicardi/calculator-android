@@ -24,18 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         change = (Button)findViewById(R.id.change_button);
-        changeFragment = (Button)findViewById(R.id.change_fragment);
         formLogin();
-        changeFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isLoginForm){
-                    Toast.makeText(MainActivity.this, "Login Dulu", Toast.LENGTH_SHORT).show();
-                }else {
-
-                }
-            }
-        });
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
