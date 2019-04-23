@@ -1,3 +1,6 @@
+## 10.0 (April 23, 2019)
+  -  minggu 10
+
 ## 9.2.0 (April 15, 2019)
   -  ss project
 
