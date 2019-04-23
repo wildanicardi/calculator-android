@@ -19,7 +19,7 @@ import android.widget.Button;
  */
 public class Biodata extends Fragment {
 
-    private Button btnAbout;
+    private Button btnAbout,btnKalkulator;
     public Biodata() {
         // Required empty public constructor
     }
@@ -30,6 +30,14 @@ public class Biodata extends Fragment {
                              Bundle savedInstanceState) {
         View aboutFrag = inflater.inflate(R.layout.fragment_biodata,container,false);
         btnAbout = aboutFrag.findViewById(R.id.btn_about);
+        btnKalkulator = aboutFrag.findViewById(R.id.btn_kalkulator);
+        btnKalkulator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent kalkulator = new Intent(getActivity(),Calculator.class);
+                startActivity(kalkulator);
+            }
+        });
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
