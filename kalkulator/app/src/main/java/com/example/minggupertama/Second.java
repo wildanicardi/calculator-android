@@ -51,10 +51,8 @@ public class Second extends Fragment {
                              Bundle savedInstanceState) {
             View viewFrag2 = inflater.inflate(R.layout.fragment_second, container,
                     false);
-        tvResult = (TextView) viewFrag2.findViewById(R.id.textView);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         btnGet = (Button)viewFrag2.findViewById(R.id.btn_get);
-        btnPost = (Button)viewFrag2.findViewById(R.id.btn_post);
         mQueue = Volley.newRequestQueue(getContext());
         final String post_url = "https://postman-echo.com/post";
         btnPost.setOnClickListener(new View.OnClickListener() {

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class Calculator extends AppCompatActivity {
 
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, b10, buttonAdd, buttonSub, buttonDivision,
             buttonMul, buttonC, buttonEqual, btnNegatif, btnPersen, delete;
+    ImageView btnUpload,btnGallery;
     TextView edit, edit2;
     RequestQueue mQueu;
     LinearLayout samadengan, hapus;
@@ -195,9 +197,26 @@ public class Calculator extends AppCompatActivity {
         btnPersen = findViewById(R.id.buttonpersen);
         mQueu = Volley.newRequestQueue(this);
         delete = findViewById(R.id.hapus);
+        btnUpload = findViewById(R.id.btn_upload);
+        btnGallery = findViewById(R.id.btn_open);
         edit = findViewById(R.id.edt1);
         edit2 = findViewById(R.id.edt2);
 
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Calculator.this,Upload.class);
+                startActivity(intent);
+            }
+        });
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Calculator.this,GalleryActivity.class);
+                startActivity(intent);
+
+            }
+        });
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
