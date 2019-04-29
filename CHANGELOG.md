@@ -1,3 +1,6 @@
+## 10.2.0 (April 29, 2019)
+  -  logic search
+
 ## 10.1.0 (April 28, 2019)
   -  login upload minggu 10
 
