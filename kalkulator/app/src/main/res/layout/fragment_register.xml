@@ -8,7 +8,7 @@
     android:paddingRight="30dp"
     android:paddingLeft="30dp"
     android:paddingTop="80dp"
-    android:background="@color/colorPrimaryDark2"
+    android:background="@color/background"
     tools:context=".Register">
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:id="@+id/nrp2"
             android:hint="NRP"
             android:inputType ="textPersonName"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -29,7 +29,7 @@
             android:id="@+id/name"
             android:hint="NAMA"
             android:inputType ="textPersonName"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -40,31 +40,34 @@
             android:id="@+id/alias1"
             android:hint="ALIAS"
             android:inputType ="textPersonName"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Jenis Kelamin"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:id="@+id/gender">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Jenis Kelamin"/>
             <RadioButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:id="@+id/cowok"
                 android:text="Cowok"/>
             <RadioButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cewek"
                 android:text="Cewek"/>
@@ -72,34 +75,38 @@
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Grup Kelas"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:id="@+id/kelas">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Grup Kelas"/>
             <RadioButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:id="@+id/a"
-                android:text="A"/>
+                android:text="2 D3 IT A"/>
             <RadioButton
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/b"
-                android:text="B"/>
+                android:text="2 D3 IT B"/>
         </RadioGroup>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         >
-        <TextView
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -120,10 +127,11 @@
     <Button
         android:id="@+id/btn_regist"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Register"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_rounded"
         android:backgroundTint="@color/colorPrimaryDark"
         android:textColor="@android:color/white"/>
 </LinearLayout>

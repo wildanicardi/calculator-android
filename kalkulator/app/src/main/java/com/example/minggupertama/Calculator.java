@@ -2,10 +2,14 @@ package com.example.minggupertama;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,6 +37,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 
 import static com.example.minggupertama.Register.url;
 
@@ -45,6 +55,13 @@ public class Calculator extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     final static String url_calc = "https://diabsen.in/api/calculator/run";
     float hasil;
+    public static int OCR_REQUEST_CODE = 100;
+    ProgressDialog pDialog;
+
+    private ImageView imageView;
+    public static String BASE_URL = "https://diabsen.in/api/calculator/ocr";
+
+
 
     public void setInputan(TextView btn) {
         TextView edit = findViewById(R.id.edt1);
@@ -202,9 +219,19 @@ public class Calculator extends AppCompatActivity {
         edit = findViewById(R.id.edt1);
         edit2 = findViewById(R.id.edt2);
 
+        Button btn_ocr = findViewById(R.id.btn_ocr);
+        btn_ocr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, OCR_REQUEST_CODE);
+            }
+        });
+
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(Calculator.this, "upload drive", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Calculator.this,Upload.class);
                 startActivity(intent);
             }
@@ -452,4 +479,154 @@ public class Calculator extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == OCR_REQUEST_CODE && resultCode == RESULT_OK) {
+            Toast.makeText(this, "oke", Toast.LENGTH_SHORT).show();
+            //getting the image Uri
+            Uri imageUri = data.getData();
+            try {
+                //getting bitmap object from uri
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+
+                //displaying selected image to imageview
+//                imageView.setImageBitmap(bitmap);
+
+                //calling the method uploadBitmap to upload image
+                uploadBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+    private void uploadBitmap(final Bitmap bitmap) {
+        Toast.makeText(this, "upload", Toast.LENGTH_SHORT).show();
+        pDialog = new ProgressDialog(Calculator.this);
+        pDialog.setCancelable(false);
+        pDialog.setMessage("Tunggu Sebentar...");
+        showDialog();
+        //our custom volley request
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, BASE_URL,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        
+                        try {
+                            JSONObject obj = new JSONObject(new String(response.data));
+                            Boolean responses = obj.getBoolean("response");
+                            String message = obj.getString("message");
+
+                            Toast.makeText(Calculator.this, message, Toast.LENGTH_SHORT).show();
+
+                            JSONObject result3 = obj.getJSONObject("results");
+                            String hitung = result3.getString("ocr_text");
+                            JSONObject result4 = result3.getJSONObject("calc_result");
+                            String result5 = result4.getString("exact");
+
+                            if(responses){
+                                edit.setText(hitung + "=" + result5);
+                            }
+                            hideDialog();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            hideDialog();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Calculator.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        refreshAccessToken();
+                        hideDialog();
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                String access_token = sharedPreferences.getString("access_token","access_token");
+                // Basic Authentication
+                //String auth = "Basic " + Base64.encodeToString(CONSUMER_KEY_AND_SECRET.getBytes(), Base64.NO_WRAP);
+                headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer " + access_token);
+                return headers;
+            }
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("file", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                return params;
+            }
+        };
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        //adding the request to volley
+        Volley.newRequestQueue(Calculator.this).add(volleyMultipartRequest);
+    }
+
+    private void refreshAccessToken() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, "https://diabsen.in/api/auth/refresh",
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject results = response.getJSONObject("results");
+                    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("access_token", results.getString("access_token")).commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                logout();
+                error.getMessage();
+                error.printStackTrace();
+                Log.i("EROR", error.getMessage());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Calculator.this);
+
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + sharedPreferences.getString("refresh_token", null));
+                return headers;
+            }
+        };
+        Volley.newRequestQueue(Calculator.this).add(jsonObjectRequest);
+     }
+//    private void logout(){
+//        sharedPreferences.edit().clear().commit();
+//        startActivity(new Intent(Calculator.this, MainActivity.class));
+//    }
+
+
+    private void showDialog(){
+        if (!pDialog.isShowing()){
+            pDialog.show();
+        }
+    }
+
+    private void hideDialog(){
+        if (pDialog.isShowing()){
+            pDialog.dismiss();
+        }
+    }
+
+
+
 }

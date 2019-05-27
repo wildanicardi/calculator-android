@@ -7,22 +7,24 @@
     android:paddingTop="80dp"
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
-    android:background="@color/colorPrimary"
     tools:context=".Login">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/layout_email">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nrp1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="NRP"
+            android:textSize="20sp"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorText" />
+            android:textColorHint="@color/colorAccent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -32,13 +34,13 @@
         android:id="@+id/layout_password"
         android:layout_below="@id/layout_email"
         app:passwordToggleEnabled="true">
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:id="@+id/password"
             android:hint="Password"
-            android:textColor="@color/colorText"/>
+            android:textColor="@color/colorAccent"/>
 
     </com.google.android.material.textfield.TextInputLayout>
     <ProgressBar
@@ -52,9 +54,10 @@
         android:id="@+id/btn_login"
         android:layout_below="@id/loading"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:text="Login"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/colorPrimaryDark2"
+        android:background="@drawable/button_rounded"
         android:textColor="@android:color/white"/>
 </RelativeLayout>
