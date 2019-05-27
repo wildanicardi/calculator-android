@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -41,7 +42,8 @@ public class Login extends Fragment {
 
     private EditText nrp,password;
     private Button btnLogin;
-    SharedPreferences sharedPreferences;
+    ImageView image_view;
+    public SharedPreferences sharedPreferences;
     private ProgressBar loading;
     final String url = "https://diabsen.in/api/auth/login";
     final static String RESPONSE = "response";
@@ -63,12 +65,13 @@ public class Login extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Login();
+                login();
             }
         });
+
         return fragmentLogin;
     }
-    private void Login(){
+    private void login(){
         loading.setVisibility(View.VISIBLE);
         btnLogin.setVisibility(View.GONE);
         String nrp2 =nrp.getText().toString().trim();
@@ -83,22 +86,24 @@ public class Login extends Fragment {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url,params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(getContext(), "Bisa", Toast.LENGTH_SHORT).show();
                 try {
-                    String acces_token = response.getJSONObject("results").getString("access_token");
-                    String refresh_token = response.getJSONObject("results").getString("refresh_token");
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("access_token",acces_token);
-                    editor.putString("refresh_token",refresh_token);
-                    editor.commit();
-                    Biodata biodata = new Biodata();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_menu, biodata);
-                    fragmentTransaction.commit();
+                    if (response.getBoolean("response") == true){
+                        Toast.makeText(getContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                        String acces_token = response.getJSONObject("results").getString("access_token");
+                        String refresh_token = response.getJSONObject("results").getString("refresh_token");
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("access_token",acces_token);
+                        editor.putString("refresh_token",refresh_token);
+                        editor.commit();
+                        Biodata biodata = new Biodata();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.main_menu, biodata);
+                        fragmentTransaction.commit();
 
-                    loading.setVisibility(View.GONE);
-                    btnLogin.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.GONE);
+                        btnLogin.setVisibility(View.VISIBLE);
+                    }
                 }catch (JSONException e){
 
                     e.printStackTrace();

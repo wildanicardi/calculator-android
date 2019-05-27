@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Belum Register"
-            android:background="@color/colorPrimaryDark"/>
+            android:background="@drawable/button_rounded"
+            android:backgroundTint="@color/colorPrimaryDark"/>
     </LinearLayout>
 
 
