@@ -1,3 +1,6 @@
+## 13.1.0 (May 27, 2019)
+  - ss OCR
+
 ## 13.0.0 (May 27, 2019)
   - Merge branch 'minggu13' into develop
   - OCR
