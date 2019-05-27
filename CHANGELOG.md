@@ -1,3 +1,8 @@
+## 13.0.0 (May 27, 2019)
+  - Merge branch 'minggu13' into develop
+  - OCR
+  - conflict
+
 ## 10.3.0 (April 29, 2019)
   - login download and new design
 

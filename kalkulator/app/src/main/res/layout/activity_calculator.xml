@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="1">
             <Button
                 android:id="@+id/buttonC"
                 android:text="C"
@@ -89,7 +89,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="1">
             <Button
                 android:id="@+id/button7"
                 android:text="7"
@@ -127,7 +127,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="1">
             <Button
                 android:id="@+id/button4"
                 android:text="4"
@@ -165,7 +165,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="1">
             <Button
                 android:id="@+id/button1"
                 android:text="1"
@@ -203,7 +203,37 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/btn_ocr"
+                android:background="@color/colorPrimaryDark"
+                android:text="OCR"
+                android:textSize="35dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/button0"
+                android:text="0"
+                android:textSize="35dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/buttoneql"
+                android:text="="
+                android:layout_width="0dp"
+                android:textColor="#000"
+                android:textSize="35dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_weight="1">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -211,41 +241,25 @@
 
                 <ImageView
                     android:id="@+id/btn_upload"
-                    android:layout_width="30dp"
+                    android:layout_width="10dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/ic_action_upload"
-                    android:textSize="25dp" />
-            </LinearLayout>
-                <Button
-                    android:id="@+id/button0"
-                    android:text="0"
-                    android:textSize="35dp"
+                    android:textSize="15dp" />
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/btn_open"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_action_open"
-                    android:textSize="25dp" />
+                    <ImageView
+                        android:id="@+id/btn_open"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_action_open"
+                        android:textSize="25dp" />
+                </LinearLayout>
             </LinearLayout>
-            <Button
-                android:id="@+id/buttoneql"
-                android:text="="
-                android:layout_width="0dp"
-                android:textColor="#000"
-                android:textSize="25dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -30,6 +30,7 @@ public class Biodata extends Fragment {
                              Bundle savedInstanceState) {
         View aboutFrag = inflater.inflate(R.layout.fragment_biodata,container,false);
         btnAbout = aboutFrag.findViewById(R.id.btn_about);
+
         btnKalkulator = aboutFrag.findViewById(R.id.btn_kalkulator);
         btnKalkulator.setOnClickListener(new View.OnClickListener() {
             @Override

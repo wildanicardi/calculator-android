@@ -3,26 +3,19 @@ package com.example.minggupertama;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
+;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button change,changeFragment;
-    Boolean kondisi = true;
+    Button change;
     private boolean isLoginForm = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getSupportActionBar().setTitle("Kalkulator");
         change = (Button)findViewById(R.id.change_button);
         formLogin();
         change.setOnClickListener(new View.OnClickListener() {
